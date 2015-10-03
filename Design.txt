@@ -6,6 +6,8 @@ Tile Class
 	
 	
 Type Enum
+	air
+	cloud
 	soil
 	stone
 	lava
