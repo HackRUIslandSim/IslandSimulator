@@ -3,13 +3,19 @@ import java.awt.Color;
 
 public class Tile
 {
-	enum Type{
+	public static enum Type{
 		STONE(Color.gray), WATER(Color.blue);
 		
-		Color color;
+		public Color color;
 		Type(Color c)
 		{
 			color = c;
 		}
+	}
+	public Type type;
+	
+	public Tile(Type t)
+	{
+		type = t;
 	}
 }

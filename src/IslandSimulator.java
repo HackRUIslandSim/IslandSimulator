@@ -34,6 +34,13 @@ public class IslandSimulator extends JPanel
 		}, 0, 1000/60);
 	}
 	
+	public static final int SIZE = 64;
+	
+	public IslandSimulator()
+	{
+		
+	}
+	
 	public void tick()
 	{
 		
