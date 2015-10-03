@@ -18,4 +18,8 @@ public class Tile
 	{
 		type = t;
 	}
+	public static void fertilize (Tile[][] tiles)
+	{
+		
+	}
 }
