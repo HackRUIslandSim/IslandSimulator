@@ -1,6 +1,5 @@
 import java.awt.Color;
 
-
 public class Tile
 {
 	public static enum Type{
@@ -13,9 +12,16 @@ public class Tile
 		}
 	}
 	public Type type;
-	
-	public Tile(Type t)
+	public double height;
+
+	public Tile(Type t, double h)
 	{
 		type = t;
+		height = h;
+	}
+	
+	public void tick()
+	{
+		
 	}
 }
