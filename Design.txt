@@ -1,0 +1,16 @@
+Tile Class
+	layers enum Type[]
+	layerDepths double[]
+	fertility double
+	hyrdration double
+	
+	
+Type Enum
+	soil
+	stone
+	lava
+	water
+	sand
+	grass
+	forest
+	
