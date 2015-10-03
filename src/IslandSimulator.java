@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -41,8 +43,21 @@ public class IslandSimulator extends JPanel
 	public IslandSimulator()
 	{
 		tiles = new Tile[SIZE][SIZE];
-		
+
 		Generation.initialGen(tiles);
+//		Generation.cleanUp(tiles, 20);
+		
+		this.setFocusable(true);
+		this.requestFocus();
+		this.addKeyListener(new KeyAdapter(){
+			public void keyPressed(KeyEvent e)
+			{
+				if(e.getKeyCode() == KeyEvent.VK_1)
+					Generation.smooth(tiles);
+				else if(e.getKeyCode() == KeyEvent.VK_2)
+					Generation.scrub(tiles);
+			}
+		});
 		
 		this.setPreferredSize(new Dimension(TILE_SIZE*SIZE, TILE_SIZE*SIZE));
 	}
@@ -67,5 +82,17 @@ public class IslandSimulator extends JPanel
 				g.setColor(tiles[x][y].type.color);
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
+	}
+	
+	public static void debugHang()
+	{
+		panel.repaint();
+		try
+		{
+			Thread.sleep(2000);
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
