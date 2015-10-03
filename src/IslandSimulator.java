@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Timer;
@@ -34,11 +35,16 @@ public class IslandSimulator extends JPanel
 		}, 0, 1000/60);
 	}
 	
-	public static final int SIZE = 64;
+	public static final int SIZE = 64, TILE_SIZE = 8;
+	public Tile[][] tiles;
 	
 	public IslandSimulator()
 	{
+		tiles = new Tile[SIZE][SIZE];
 		
+		Generation.initialGen(tiles);
+		
+		this.setPreferredSize(new Dimension(TILE_SIZE*SIZE, TILE_SIZE*SIZE));
 	}
 	
 	public void tick()
@@ -53,6 +59,13 @@ public class IslandSimulator extends JPanel
 	
 	public void paintComponent(Graphics gr)
 	{
-//		Graphics2D g = (Graphics2D) gr;
+		Graphics2D g = (Graphics2D) gr;
+		
+		for(int x = 0; x < tiles.length; x++)
+			for(int y = 0; y < tiles[x].length; y++)
+			{
+				g.setColor(tiles[x][y].type.color);
+				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+			}
 	}
 }

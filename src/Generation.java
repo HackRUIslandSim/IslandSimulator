@@ -5,9 +5,12 @@ public class Generation
 	public static void initialGen(Tile[][] tiles)
 	{
 
+
 	}
 
-	public static void smooth(Tile[][] tiles)
+	
+	public static void smooth (Tile[][] tiles)
+
 	{
 		// Checks to see if the surronding blocks are water
 		for (int y = 1; y < (tiles[y].length - 1); y++)
