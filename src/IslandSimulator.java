@@ -69,7 +69,7 @@ public class IslandSimulator extends JPanel
 					Generation.genMountain(tiles);
 				else if(e.getKeyCode() == KeyEvent.VK_SPACE)
 					if(mouseX >= 0 && mouseY >= 0 && mouseX < SIZE * TILE_SIZE && mouseY < SIZE * TILE_SIZE)
-						System.out.println(tiles[mouseX/TILE_SIZE][mouseY/TILE_SIZE].height);
+						System.out.println(tiles[mouseX/TILE_SIZE][mouseY/TILE_SIZE].height+" "+mouseX/TILE_SIZE + " " + mouseY/TILE_SIZE);
 			}
 		});
 		
