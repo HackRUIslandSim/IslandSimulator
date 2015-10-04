@@ -17,6 +17,7 @@ public class Tile
 				Color.GREEN.brighter()), FOREST("res/Forest.png"), LUSHFOREST("res/ForestApples.png");
 
 		public BufferedImage img;
+		
 
 		Type(Color c)
 		{
@@ -150,7 +151,7 @@ public class Tile
 		}
 		if(tiles[x][y].type == Tile.Type.FOREST)
 		{
-			if(Math.random() < 0.005)
+			if(Math.random() < 0.0009)
 			{
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
@@ -160,6 +161,7 @@ public class Tile
 			if(Math.random() < 0.001)
 			{
 				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
+				tiles[x][y].type = Tile.Type.FOREST;
 			}
 		}
 	}

@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 
 public class Creature {
 	public boolean alive = true;
-	public int x, y, hunger, movSpeed = 8, size = 1;
+	public int x, y, hunger, movSpeed = 8, size = 1, time = 0;
 	public final int TicksPerMinute = 600, maxHunger;	
 	public BufferedImage img = null;
 	
@@ -34,15 +34,19 @@ public class Creature {
 	
 	public void tick()
 	{
-		hunger--; 
 		Random generator = new Random();
 		float chance = generator.nextFloat();
+		if(time == 0)
+		{
+			time = 8;
+			if(chance >= hunger / maxHunger)
+				move();
+		}
+		hunger--; 
 		
 		//If chance is greater than the creatures hunger:
 		//at 70% full, creature has a 30% chance not to move out of hunger
 		//Just trust that it makes sense somehow
-		if(chance >= hunger / maxHunger)
-			move();
 		
 		if(IslandSimulator.tiles[x / 8][y / 8].type == Tile.Type.LUSHFOREST)
 			hunger += TicksPerMinute;
@@ -70,7 +74,7 @@ public class Creature {
 				appleX = x + i;
 				appleY = y + j;
 			}
-		if(applesNear)
+		if(hunger <= maxHunger * 0.5 && applesNear)
 			moveTowards(appleX * 8, appleY * 8);
 		else
 			moveRand();
