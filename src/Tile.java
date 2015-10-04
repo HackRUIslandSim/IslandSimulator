@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 
 
@@ -61,9 +63,8 @@ public class Tile
 
 	public void tick(int x, int y)
 	{
-
 		Tile[][] tiles = IslandSimulator.tiles;
-
+		ArrayList <Creature> creatures = IslandSimulator.creatures;
 		if (type == Type.WATER)
 		{
 			hydration = 1;
@@ -165,6 +166,13 @@ public class Tile
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
 			}
+		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
+		{
+			if(Math.random() < 0.001)
+			{
+				creatures.add(Creature());
+			}
+		}
 	}
 
 	public Tile clone()
