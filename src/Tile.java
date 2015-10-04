@@ -52,11 +52,12 @@ public class Tile
 					}
 				}
 			}
-			tiles[x][y].hydration = tiles[x][y].hydration/1.28;
+			tiles[x][y].hydration = tiles[x][y].hydration / 1.28;
 			System.out.println(tiles[x][y].hydration);
-			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.33) && Math.random() * 10 >= 9.95)
+			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.33) && Math.random() * 10 >= 9.99 && tiles[x][y].height < 
+					(IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
 			{
-				tiles[x][y].type = Tile.Type.MOSS;
+				tiles[x][y].type = Tile.Type.MOSS; 
 			}
 		}
 	}
@@ -65,7 +66,7 @@ public class Tile
 	{
 
 	}
-	
+
 	public Tile clone()
 	{
 		Tile t = new Tile(type, height);

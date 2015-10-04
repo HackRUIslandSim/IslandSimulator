@@ -54,7 +54,7 @@ public class IslandSimulator extends JPanel
 
 		Generation.initialGen(tiles);
 		Generation.cleanUp(tiles, 30);
-//		Generation.genMountain(tiles);
+		Generation.genMountain(tiles);
 		
 		this.setFocusable(true);
 		this.requestFocus();
