@@ -6,27 +6,34 @@ public class Generation
 
 	public static void initialGen(Tile[][] tiles)
 	{
-
-
+		for(int x = 0; x < tiles.length; x++)
+			for(int y = 0; y < tiles.length; y++)
+				tiles[x][y] = new Tile(Tile.Type.WATER, 0);
+		
+		for(int x = 1; x < tiles.length-1; x++)
+			for(int y = 1; y < tiles.length-1; y++)
+				if(Math.sqrt(Math.pow(IslandSimulator.SIZE/2-x, 2) + Math.pow(IslandSimulator.SIZE/2-y, 2)) / 
+						Math.sqrt(Math.pow(IslandSimulator.SIZE/2-1, 2) + Math.pow(IslandSimulator.SIZE/2-1, 2)) <= Math.random())
+					tiles[x][y] = new Tile(Tile.Type.STONE, 1);
 	}
 
 	
-	static final double SCRUB_CHANCE = 0.333;
-	static final int END_SCRUB = 3;
+	static final double SCRUB_CHANCE = 0.1;
+	static final int END_SCRUB = 2;
 	public static void cleanUp(Tile[][] tiles, int iter)
 	{
 		for(int n = 0; n < iter; n++)
 			if(Math.random() < SCRUB_CHANCE)
-				scrub(tiles);
-			else
 				smooth(tiles);
+			else
+				noise(tiles);
 		
 		for(int n = 0; n < END_SCRUB; n++)
-			scrub(tiles);
+			smooth(tiles);
 	}
 	
-	public static void smooth (Tile[][] tiles)
 
+	public static void noise(Tile[][] tiles)
 	{
 		// Checks to see if the surronding blocks are water
 		for (int y = 1; y < (tiles[y].length - 1); y++)
@@ -49,7 +56,7 @@ public class Generation
 		}
 	}
 	
-	public static void scrub(Tile[][] tiles)
+	public static void smooth(Tile[][] tiles)
 	{
 		for(int x = 1; x < tiles.length-1; x++)
 			for(int y = 1; y < tiles[x].length-1; y++)
@@ -64,6 +71,8 @@ public class Generation
 				for(int n = 0; n < map.size(); n++)
 					if(map.get(map.keySet().toArray()[n]) > map.get(top))
 						top = (Tile.Type) map.keySet().toArray()[n];
+				
+				tiles[x][y].type = top;
 			}
 	}
 }

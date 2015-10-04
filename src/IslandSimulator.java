@@ -16,7 +16,7 @@ public class IslandSimulator extends JPanel
 	
 	public static void main(String[] args)
 	{
-		JFrame frame = new JFrame("Orb Game");
+		JFrame frame = new JFrame("Island Simulator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panel = new IslandSimulator();
@@ -45,7 +45,7 @@ public class IslandSimulator extends JPanel
 		tiles = new Tile[SIZE][SIZE];
 
 		Generation.initialGen(tiles);
-//		Generation.cleanUp(tiles, 20);
+		Generation.cleanUp(tiles, 30);
 		
 		this.setFocusable(true);
 		this.requestFocus();
@@ -53,9 +53,9 @@ public class IslandSimulator extends JPanel
 			public void keyPressed(KeyEvent e)
 			{
 				if(e.getKeyCode() == KeyEvent.VK_1)
-					Generation.smooth(tiles);
+					Generation.noise(tiles);
 				else if(e.getKeyCode() == KeyEvent.VK_2)
-					Generation.scrub(tiles);
+					Generation.smooth(tiles);
 			}
 		});
 		
@@ -64,7 +64,9 @@ public class IslandSimulator extends JPanel
 	
 	public void tick()
 	{
-		
+		for(int x = 0; x < tiles.length; x++)
+			for(int y = 0; y < tiles[x].length; y++)
+				tiles[x][y].tick();
 	}
 	
 	public boolean isOpen()
