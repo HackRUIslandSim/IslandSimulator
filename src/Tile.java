@@ -4,7 +4,7 @@ public class Tile
 {
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513));
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(Color.GREEN.brighter());
 
 		public Color color;
 
@@ -81,7 +81,7 @@ public class Tile
 					tiles[x][y].type = Tile.Type.MOSS; 
 				}
 			}
-
+		
 		if(type == Type.MOSS && Math.random() > 0.9999)
 		{
 			type = Type.STONE;
@@ -91,6 +91,10 @@ public class Tile
 		if(type == Type.STONE && fertilization > 0.5 && Math.random() > 0.99)
 		{
 			type = Type.SOIL;
+		}
+		if(type == Type.SOIL && Math.random() < 0.00001)
+		{
+			tiles[x][y].type = Tile.Type.GRASS;
 		}
 	}
 
