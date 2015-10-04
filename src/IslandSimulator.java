@@ -86,7 +86,7 @@ public class IslandSimulator extends JPanel
 			{
 				g.setColor(tiles[x][y].type.color);
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-				g.setColor(new Color(0, 0, 0, (int)(30 - tiles[x][y].height)));
+				g.setColor(new Color(0, 0, 0, (int)(tiles[x][y].height*24)));
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
 	}
