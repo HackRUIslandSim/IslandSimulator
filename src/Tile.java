@@ -61,7 +61,7 @@ public class Tile
 				if (x != 0 && y != 0 && x != (tiles[x].length - 1) && y != (tiles[y].length - 1))
 				{
 					for (int subx = -1; subx < 2; subx++)
-					{
+					{                                                                               
 						for (int suby = -1; suby < 2; suby++)
 						{
 							if (suby != 0 && subx != 0)
