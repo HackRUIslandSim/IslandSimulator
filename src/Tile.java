@@ -65,4 +65,11 @@ public class Tile
 	{
 
 	}
+	
+	public Tile clone()
+	{
+		Tile t = new Tile(type, height);
+		t.hydration = hydration;
+		return t;
+	}
 }
