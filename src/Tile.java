@@ -19,6 +19,7 @@ public class Tile
 				Color.GREEN.brighter()), FOREST("res/Forest.png"), LUSHFOREST("res/ForestApples.png");
 
 		public BufferedImage img;
+		
 
 		Type(Color c)
 		{
@@ -161,16 +162,17 @@ public class Tile
 		}
 		if(tiles[x][y].type == Tile.Type.FOREST)
 		{
-			if(Math.random()*50<=1)
+			if(Math.random() < 0.00003)
 			{
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
 		}
-		if(tiles[x][y].type == Tile.Type.LUSHFOREST && tiles[x][y].type != Tile.Type.WATER)
+		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
 		{
 			if(Math.random() < 0.001)
 			{
 				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
+				tiles[x][y].type = Tile.Type.FOREST;
 			}
 		}
 	}
