@@ -31,21 +31,28 @@ public class Creature {
 		
 		if(hunger == 0)
 			alive = false;
-		if(hunger > maxHunger * 0.75)
+		if(hunger > maxHunger * 0.80)
 			if(generator.nextFloat() < 0.25 && size != 3)
 				size++;
 	}
 	
 	public void move()
 	{
-		for(int i = 3; i > -3; i--)
-			for(int j = 3; j > -3; j--)
+		boolean applesNear = false;
+		int appleX = 0, appleY = 0;
+		for(int i = 3; i > -4; i--)
+			for(int j = 3; j > -4; j--)
 			{
 				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.APPLEFOREST || FOREST)
-				//	moveTowards(x + i, y + j);
-				//else
-				//  moveRand();
+				//	applesNear = true;
+				//appleX = x + i
+				//appleY = y + j
 			}
+		if(applesNear)
+			moveTowards(appleX, appleY);
+		else
+			moveRand();
+			
 	}
 	public void moveTowards(int tileX, int tileY)
 	{
