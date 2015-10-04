@@ -38,7 +38,7 @@ public class IslandSimulator extends JPanel
 				if(!panel.isOpen())
 					loop.cancel();
 			}
-		}, 0, 1000/60);
+		}, 0, 1000/10);
 	}
 	
 	public static final int SIZE = 64, TILE_SIZE = 8;
@@ -69,7 +69,8 @@ public class IslandSimulator extends JPanel
 					Generation.genMountain(tiles);
 				else if(e.getKeyCode() == KeyEvent.VK_SPACE)
 					if(mouseX >= 0 && mouseY >= 0 && mouseX < SIZE * TILE_SIZE && mouseY < SIZE * TILE_SIZE)
-						System.out.println(tiles[mouseX/TILE_SIZE][mouseY/TILE_SIZE].height+" "+mouseX/TILE_SIZE + " " + mouseY/TILE_SIZE);
+						System.out.println(tiles[mouseX/TILE_SIZE][mouseY/TILE_SIZE].hydration + " " +
+					mouseX/TILE_SIZE + " " + mouseY/TILE_SIZE); 
 			}
 		});
 		

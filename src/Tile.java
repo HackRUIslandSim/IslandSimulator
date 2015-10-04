@@ -5,7 +5,7 @@ public class Tile
 {
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker());
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513));
 
 		public Color color;
 
@@ -16,8 +16,7 @@ public class Tile
 	}
 
 	public Type type;
-	public double hydration;
-	public double height;
+	public double hydration, height, fertilization;
 
 	public Tile(Type t, double h)
 	{
@@ -34,6 +33,7 @@ public class Tile
 			default:
 				break;
 		}
+		fertilization = 0;
 	}
 
 	public void tick(int x, int y)
@@ -49,25 +49,36 @@ public class Tile
 					if (suby != 0 && subx != 0)
 					{
 						nearby.add(tiles[x + subx][y + suby]);
-						tiles[x + subx][y + suby].hydration = tiles[x + subx][y + suby].hydration
-								+ (tiles[x][y].hydration / 16);
+						tiles[x + subx][y + suby].hydration += (tiles[x][y].hydration / 16);
 					}
 				}
 			}
-			tiles[x][y].hydration = tiles[x][y].hydration / 1.28;
-			System.out.println(tiles[x][y].hydration);
-			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.33) && Math.random() * 10 >= 9.99 && tiles[x][y].height < 
-					(IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
+			
+			if(type == Type.WATER)
+				hydration = 1;
+			else
 			{
-				tiles[x][y].type = Tile.Type.MOSS; 
+				tiles[x][y].hydration /= 2;
+				tiles[x][y].hydration /= 1.05;
+				if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.2) && Math.random() >= 0.9992 && tiles[x][y].height<
+						(IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
+				{
+					tiles[x][y].type = Tile.Type.MOSS; 
+				}
 			}
 			
 		}
-	}
 
-	public static void fertilize(Tile[][] tiles)
-	{
-
+		if(type == Type.MOSS && Math.random() > 0.9999)
+		{
+			type = Type.STONE;
+			fertilization += Math.random() * 0.3 + 0.1;
+		}
+		
+		if(type == Type.STONE && fertilization > 0.5 && Math.random() > 0.99)
+		{
+			type = Type.SOIL;
+		}
 	}
 
 	public Tile clone()
