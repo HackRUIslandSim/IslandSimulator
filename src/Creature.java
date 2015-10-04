@@ -30,10 +30,6 @@ public class Creature {
 					img = ImageIO.read(new File("res/LargeAnimal.png"));
 				} catch (IOException e) {}
 		}
-		
-		
-		
-		
 	}
 	
 	public void tick()
