@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Generation
 {
-	
+
 	public static void initialGen(Tile[][] tiles)
 	{
 		for(int x = 0; x < tiles.length; x++)
@@ -16,6 +16,7 @@ public class Generation
 						Math.sqrt(Math.pow(IslandSimulator.SIZE/2-1, 2) + Math.pow(IslandSimulator.SIZE/2-1, 2)) <= Math.random())
 					tiles[x][y] = new Tile(Tile.Type.STONE, 1);
 	}
+
 	
 	static final double SCRUB_CHANCE = 0.1;
 	static final int END_SCRUB = 2;
@@ -31,12 +32,13 @@ public class Generation
 			smooth(tiles);
 	}
 	
+
 	public static void noise(Tile[][] tiles)
 	{
-		//Checks to see if the surronding blocks are water
-		for(int y = 1;y<(tiles[y].length-1);y++)
+		// Checks to see if the surronding blocks are water
+		for (int y = 1; y < (tiles[y].length - 1); y++)
 		{
-			for(int x  = 1;x<(tiles[y].length-1);x++)
+			for (int x = 1; x < (tiles[y].length - 1); x++)
 			{
 				//The next segment checks the tiles around the stone tile
 				//and then randomly changes it based on amount of tiles around it
