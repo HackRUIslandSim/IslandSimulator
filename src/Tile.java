@@ -165,12 +165,12 @@ public class Tile
 			{
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
-			}
-		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
+		}
+		if(tiles[x][y].type == Tile.Type.LUSHFOREST && tiles[x][y].type != Tile.Type.WATER)
 		{
 			if(Math.random() < 0.001)
 			{
-				creatures.add(Creature());
+				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
 			}
 		}
 	}

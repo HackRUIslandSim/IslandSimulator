@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 
 public class Creature {
 	public boolean alive = true;
-	public int x, y, hunger, movSpeed = 1, size = 1;
+	public int x, y, hunger, movSpeed = 8, size = 1;
 	public final int TicksPerMinute = 600, maxHunger;	
 	public BufferedImage img = null;
 	
@@ -44,7 +44,7 @@ public class Creature {
 		if(chance >= hunger / maxHunger)
 			move();
 		
-		if(IslandSimulator.tiles[x][y].type == Tile.Type.LUSHFOREST)
+		if(IslandSimulator.tiles[x / 8][y / 8].type == Tile.Type.LUSHFOREST)
 			hunger += TicksPerMinute;
 		//If it can't feed its self every minute, its dead
 		
@@ -62,13 +62,16 @@ public class Creature {
 		for(int i = 3; i > -4; i--)
 			for(int j = 3; j > -4; j--)
 			{
-				if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.LUSHFOREST || IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
+				if((x/8 + i) < 64 && (y/8 + j) < 64 && (x/8 + i) > 0 && (y/8 + j) > 0 && IslandSimulator.tiles[x/8 + i][y/8 + j].type == Tile.Type.LUSHFOREST)
 					applesNear = true;
+				if((x/8 + i) < 64 && (y/8 + j) < 64 && (x/8 + i) > 0 && (y/8 + j) > 0 && IslandSimulator.tiles[x/8+ i][y/8 + j].type == Tile.Type.FOREST);
+					applesNear = true;
+					
 				appleX = x + i;
 				appleY = y + j;
 			}
 		if(applesNear)
-			moveTowards(appleX, appleY);
+			moveTowards(appleX * 8, appleY * 8);
 		else
 			moveRand();
 			
@@ -76,17 +79,17 @@ public class Creature {
 	public void moveTowards(int tileX, int tileY)
 	{
 		if(y < tileY)
-			if(IslandSimulator.tiles[x][y + 1].type != Tile.Type.WATER)
-				y++;
+			if(IslandSimulator.tiles[x/8][y/8 + 1].type != Tile.Type.WATER)
+				y+=8;
 		if(y > tileY)
-			if(IslandSimulator.tiles[x][y - 1].type != Tile.Type.WATER)
-				y--;
+			if(IslandSimulator.tiles[x/8][y/8 - 1].type != Tile.Type.WATER)
+				y-=8;
 		if(x < tileX)
-			if(IslandSimulator.tiles[x + 1][y].type != Tile.Type.WATER)
-				x++;
+			if(IslandSimulator.tiles[x/8 + 1][y/8].type != Tile.Type.WATER)
+				x+=8;
 		if(x > tileX)
-			if(IslandSimulator.tiles[x - 1][y].type != Tile.Type.WATER)
-				x--;
+			if(IslandSimulator.tiles[x/8 - 1][y/8].type != Tile.Type.WATER)
+				x-=8;
 	}
 	public void moveRand()
 	{
@@ -102,9 +105,9 @@ public class Creature {
 		else
 			change = -1;
 		
-		if(xChange && IslandSimulator.tiles[x + change][y].type != Tile.Type.WATER)
-			x += change;
-		else if(IslandSimulator.tiles[x][y + change].type != Tile.Type.WATER)
-			y += change;
+		if(xChange && IslandSimulator.tiles[x/8 + change][y/8].type != Tile.Type.WATER)
+			x += change*8;
+		else if(IslandSimulator.tiles[x/8][y/8 + change].type != Tile.Type.WATER)
+			y += change*8;
 	}	
 }
