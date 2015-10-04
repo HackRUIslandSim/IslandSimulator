@@ -5,7 +5,7 @@ public class Tile
 {
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue);
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green);
 
 		public Color color;
 
@@ -23,32 +23,41 @@ public class Tile
 	{
 		type = t;
 		height = h;
+		switch (type)
+		{
+		case STONE:
+			hydration = 0;
+			break;
+		case WATER:
+			hydration = 1;
+			break;
+		}
 	}
 
 	public void tick(int x, int y)
 	{
 		ArrayList<Tile> nearby = new ArrayList<Tile>();
-		Tile[][] tiles= IslandSimulator.tiles;
-		if (tiles[x][y].type != Tile.Type.WATER)
+		Tile[][] tiles = IslandSimulator.tiles;
+		if (x != 0 && y != 0 && x != (tiles[x].length - 1) && y != (tiles[y].length - 1))
 		{
 			for (int subx = -1; subx < 2; subx++)
 			{
 				for (int suby = -1; suby < 2; suby++)
 				{
-					nearby.add(tiles[x + subx][y + suby]);
+					if (suby != 0 && subx != 0)
+					{
+						nearby.add(tiles[x + subx][y + suby]);
+						tiles[x + subx][y + suby].hydration = tiles[x + subx][y + suby].hydration
+								+ (tiles[x][y].hydration / 16);
+					}
 				}
 			}
-			double hydration = 0;
-			for (int counter = 0; counter < 9; counter++)
+			tiles[x][y].hydration = tiles[x][y].hydration/1.28;
+			System.out.println(tiles[x][y].hydration);
+			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.33) && Math.random() * 10 >= 9.95)
 			{
-				if(nearby.get(counter).type == Tile.Type.WATER) 
-				{
-					hydration = hydration + 1;
-				}
+				tiles[x][y].type = Tile.Type.MOSS;
 			}
-			hydration = hydration/9;
-			tiles[x][y].hydration = hydration;
-			//if(tile[x][y].type == STONE && tile[x][y].hydration >= ())
 		}
 	}
 
