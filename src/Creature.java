@@ -8,12 +8,12 @@ public class Creature {
 	public int x, y, hunger, movSpeed = 1, size = 1;
 	public final int TicksPerMinute = 600, maxHunger;	
 	public BufferedImage img = null;
-	//MaxMins = maximum time (in minutes) the creature can stay alive without eating
-	public Creature(int initX, int initY, int maxMins)
+	
+	public Creature(int initX, int initY)
 	{
 		x = initX;
 		y = initY;
-		maxHunger = TicksPerMinute * maxMins;
+		maxHunger = TicksPerMinute * 10; //currently lives for 10 minutes without aid
 		hunger = maxHunger;
 		switch (size)
 		{
@@ -44,9 +44,9 @@ public class Creature {
 		if(chance >= hunger / maxHunger)
 			move();
 		
-		//if(IslandSimulator.tiles[x][y].type = Tile.Type.APPLEFOREST)
-		//	hunger += TicksPerMinute;
-		//If it can't feed its self every minute, its deaaad
+		if(IslandSimulator.tiles[x][y].type == Tile.Type.LUSHFOREST)
+			hunger += TicksPerMinute;
+		//If it can't feed its self every minute, its dead
 		
 		if(hunger == 0)
 			alive = false;
@@ -62,7 +62,7 @@ public class Creature {
 		for(int i = 3; i > -4; i--)
 			for(int j = 3; j > -4; j--)
 			{
-				if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
+				if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.LUSHFOREST || IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
 					applesNear = true;
 				appleX = x + i;
 				appleY = y + j;
