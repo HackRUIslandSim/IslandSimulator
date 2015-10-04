@@ -16,8 +16,7 @@ public class Tile
 	}
 
 	public Type type;
-	public double hydration;
-	public double height;
+	public double hydration, height, fertilization;
 
 	public Tile(Type t, double h)
 	{
@@ -34,6 +33,7 @@ public class Tile
 			default:
 				break;
 		}
+		fertilization = 0;
 	}
 
 	public void tick(int x, int y)
@@ -62,11 +62,6 @@ public class Tile
 				tiles[x][y].type = Tile.Type.MOSS; 
 			}
 		}
-	}
-
-	public static void fertilize(Tile[][] tiles)
-	{
-
 	}
 
 	public Tile clone()

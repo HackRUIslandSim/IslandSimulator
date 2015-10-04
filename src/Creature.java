@@ -34,12 +34,19 @@ public class Creature {
 		for(int i = 3; i > -3; i--)
 			for(int j = 3; j > -3; j--)
 			{
-				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
+				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.APPLEFOREST || FOREST)
 				//	moveTowards(x + i, y + j);
 			}
 	}
-	public void moveTowards(int initX, int initY)
+	public void moveTowards(int tileX, int tileY)
 	{
-		
+		if(y < tileY)
+			y++;
+		if(y > tileY)
+			y--;
+		if(x < tileX)
+			x++;
+		if(x > tileX)
+			x--;
 	}
 }
