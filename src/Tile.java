@@ -5,7 +5,7 @@ public class Tile
 {
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green);
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker());
 
 		public Color color;
 
@@ -25,12 +25,14 @@ public class Tile
 		height = h;
 		switch (type)
 		{
-		case STONE:
-			hydration = 0;
-			break;
-		case WATER:
-			hydration = 1;
-			break;
+			case STONE:
+				hydration = 0;
+				break;
+			case WATER:
+				hydration = 1;
+				break;
+			default:
+				break;
 		}
 	}
 

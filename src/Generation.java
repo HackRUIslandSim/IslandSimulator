@@ -81,16 +81,14 @@ public class Generation
 		for(int x = 1; x < tiles.length; x++)
 			for(int y = 1; y < tiles[x].length; y++)
 			{
-				int stones = 0;
-
-				for(int rx = -4; rx < 5; rx++)
-					for(int ry = -4; ry < 5; ry++)
-						if(x+rx >= 0 && y+ry >= 0 && x+rx < tiles.length && y+ry < tiles[x].length &&tiles[x+rx][y+ry].type == Tile.Type.STONE)
-							stones++;
+				int waters = 0;
+				for(int rx = -2; rx < 3; rx++)
+					for(int ry = -2; ry < 3; ry++)
+						if(x+rx>=0 && y+ry>=0 && x+rx < tiles.length && y+ry < tiles[x].length && tiles[x+rx][y+ry].type == Tile.Type.WATER)
+							waters++;
 				
 				if(tiles[x][y].type == Tile.Type.STONE)
-					tiles[x][y].height = (double)stones / 81.0 * IslandSimulator.MOUNTAIN_HEIGHT;
-				System.out.println(stones + " " + x + " " + y);
+					tiles[x][y].height = IslandSimulator.MOUNTAIN_HEIGHT - (double)waters / 25.0 * IslandSimulator.MOUNTAIN_HEIGHT;
 			}
 	}
 }
