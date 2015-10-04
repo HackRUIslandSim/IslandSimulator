@@ -36,6 +36,8 @@ public class Creature {
 			{
 				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.APPLEFOREST || FOREST)
 				//	moveTowards(x + i, y + j);
+				//else
+				//  moveRand();
 			}
 	}
 	public void moveTowards(int tileX, int tileY)
@@ -49,4 +51,23 @@ public class Creature {
 		if(x > tileX)
 			x--;
 	}
+	public void moveRand()
+	{
+		Random generator = new Random();
+		
+		boolean xChange = false;
+		if(generator.nextDouble() > 0.5)
+			xChange = true;
+		
+		int change;
+		if(generator.nextDouble() > 0.5)
+			change = 1;
+		else
+			change = -1;
+		
+		if(xChange)
+			x += change;
+		else
+			y += change;
+	}	
 }
