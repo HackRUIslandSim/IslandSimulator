@@ -78,9 +78,15 @@ public class Generation
 	{
 		for(int x = 1; x < tiles.length; x++)
 			for(int y = 1; y < tiles[x].length; y++)
+			{
+				int stones = 0;
+				for(int rx = -2; rx < 3; rx++)
+					for(int ry = -2; ry < 3; ry++)
+						if(x+rx >= 0 && y+ry >= 0 && x+rx < tiles.length && y+ry < tiles[x].length &&tiles[x+rx][y+ry].type == Tile.Type.STONE)
+							stones++;
+				
 				if(tiles[x][y].type == Tile.Type.STONE)
-					tiles[x][y].height = Math.sqrt(Math.pow(x - tiles.length/2, 2) + Math.pow(y - tiles[x].length/2, 2)) /
-						Math.sqrt(Math.pow(1 - tiles.length/2, 2) + Math.pow(1 - tiles[x].length/2, 2)) * IslandSimulator.MOUNTAIN_HEIGHT
-						+ Math.random() - 0.5;
+					tiles[x][y].height = stones / 25.0 * IslandSimulator.MOUNTAIN_HEIGHT;
+			}
 	}
 }
