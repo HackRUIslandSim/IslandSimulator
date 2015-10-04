@@ -20,7 +20,7 @@ public class Tile
 		height = h;
 	}
 	
-	public void tick()
+	public void tick(int x, int y)
 	{
 		
 	}

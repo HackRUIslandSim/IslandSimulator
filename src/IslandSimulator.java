@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -38,7 +39,8 @@ public class IslandSimulator extends JPanel
 	}
 	
 	public static final int SIZE = 64, TILE_SIZE = 8;
-	public Tile[][] tiles;
+	public static final double MOUNTAIN_HEIGHT = 5;
+	public static Tile[][] tiles;
 	
 	public IslandSimulator()
 	{
@@ -46,6 +48,7 @@ public class IslandSimulator extends JPanel
 
 		Generation.initialGen(tiles);
 		Generation.cleanUp(tiles, 30);
+		Generation.genMountain(tiles);
 		
 		this.setFocusable(true);
 		this.requestFocus();
@@ -66,7 +69,7 @@ public class IslandSimulator extends JPanel
 	{
 		for(int x = 0; x < tiles.length; x++)
 			for(int y = 0; y < tiles[x].length; y++)
-				tiles[x][y].tick();
+				tiles[x][y].tick(x, y);
 	}
 	
 	public boolean isOpen()
@@ -82,6 +85,8 @@ public class IslandSimulator extends JPanel
 			for(int y = 0; y < tiles[x].length; y++)
 			{
 				g.setColor(tiles[x][y].type.color);
+				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+				g.setColor(new Color(0, 0, 0, (int)(30 - tiles[x][y].height)));
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
 	}
