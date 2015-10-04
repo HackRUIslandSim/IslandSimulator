@@ -170,7 +170,7 @@ public class Tile
 		{
 			if(Math.random() < 0.001)
 			{
-				creatures.add(Creature());
+//				creatures.add(Creature());
 			}
 		}
 	}
