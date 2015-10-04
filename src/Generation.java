@@ -89,6 +89,7 @@ public class Generation
 				
 				if(tiles[x][y].type == Tile.Type.STONE)
 					tiles[x][y].height = stones / 25.0 * IslandSimulator.MOUNTAIN_HEIGHT;
+				System.out.println(stones + " " + x + " " + y);
 			}
 	}
 }
