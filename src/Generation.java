@@ -83,8 +83,8 @@ public class Generation
 			{
 				int stones = 0;
 				for(int rx = -2; rx < 3; rx++)
-					for(int ry = -2; ry < 3; ry++)
-						if(x+rx >= 0 && y+ry >= 0 && x+rx < tiles.length && y+ry < tiles[x].length &&tiles[x+rx][y+ry].type == Tile.Type.STONE)
+					for(int ry = -2; ry < 3; ry++)													//Actual importance vvv
+						if(x+rx >= 0 && y+ry >= 0 && x+rx < tiles.length && y+ry < tiles[x].length && tiles[x+rx][y+ry].type == Tile.Type.STONE)
 							stones++;
 				
 				if(tiles[x][y].type == Tile.Type.STONE)

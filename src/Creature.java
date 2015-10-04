@@ -31,10 +31,15 @@ public class Creature {
 	
 	public void move()
 	{
-		for(int i = 0; i < 3; i++)
-			for(int j = 0; j < 3; j++)
+		for(int i = 3; i > -3; i--)
+			for(int j = 3; j > -3; j--)
 			{
-				//Check for fruit somehow
+				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
+				//	moveTowards(x + i, y + j);
 			}
+	}
+	public void moveTowards(int initX, int initY)
+	{
+		
 	}
 }
