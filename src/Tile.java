@@ -59,6 +59,7 @@ public class Tile
 			{
 				tiles[x][y].type = Tile.Type.MOSS; 
 			}
+			
 		}
 	}
 
