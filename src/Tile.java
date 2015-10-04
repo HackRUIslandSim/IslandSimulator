@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.ArrayList;
 
 public class Tile
 {
@@ -38,35 +37,50 @@ public class Tile
 
 	public void tick(int x, int y)
 	{
-		ArrayList<Tile> nearby = new ArrayList<Tile>();
 		Tile[][] tiles = IslandSimulator.tiles;
-		if (x != 0 && y != 0 && x != (tiles[x].length - 1) && y != (tiles[y].length - 1))
-		{
-			for (int subx = -1; subx < 2; subx++)
+			
+			if(type == Type.WATER)
 			{
-				for (int suby = -1; suby < 2; suby++)
+				hydration = 1;
+				if (x != 0 && y != 0 && x != (tiles[x].length - 1) && y != (tiles[y].length - 1))
 				{
-					if (suby != 0 && subx != 0)
+					for (int subx = -1; subx < 2; subx++)
 					{
-						nearby.add(tiles[x + subx][y + suby]);
-						tiles[x + subx][y + suby].hydration += (tiles[x][y].hydration / 16);
+						for (int suby = -1; suby < 2; suby++)
+						{
+							if (suby != 0 && subx != 0)
+							{
+								tiles[x + subx][y + suby].hydration += (tiles[x][y].hydration / 8);
+							}
+						}
 					}
 				}
 			}
-			
-			if(type == Type.WATER)
-				hydration = 1;
 			else
 			{
+				if (x != 0 && y != 0 && x != (tiles[x].length - 1) && y != (tiles[y].length - 1))
+				{
+					for (int subx = -1; subx < 2; subx++)
+					{
+						for (int suby = -1; suby < 2; suby++)
+						{
+							if (suby != 0 && subx != 0)
+							{
+								tiles[x + subx][y + suby].hydration += (tiles[x][y].hydration / 16);
+							}
+						}
+					}
+				}
+				
+					
 				tiles[x][y].hydration /= 2;
 				tiles[x][y].hydration /= 1.05;
-				if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.2) && Math.random() >= 0.9992 && tiles[x][y].height<
-						(IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
+				if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.05) && Math.random() >= 0.9992 &&
+						tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
 				{
 					tiles[x][y].type = Tile.Type.MOSS; 
 				}
 			}
-		}
 
 		if(type == Type.MOSS && Math.random() > 0.9999)
 		{
