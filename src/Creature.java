@@ -31,6 +31,9 @@ public class Creature {
 		
 		if(hunger == 0)
 			alive = false;
+		if(hunger > maxHunger * 0.75)
+			if(generator.nextFloat() < 0.25 && size != 3)
+				size++;
 	}
 	
 	public void move()
