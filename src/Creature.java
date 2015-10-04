@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Creature {
 	public boolean alive = true;
-	private int x, y, hunger, movSpeed = 1;
-	private final int TicksPerMinute = 3600, maxHunger;	
+	private int x, y, hunger, movSpeed = 1, size = 1;
+	private final int TicksPerMinute = 600, maxHunger;	
 	//MaxMins = maximum time (in minutes) the creature can stay alive without eating
 	public Creature(int initX, int initY, int maxMins)
 	{
@@ -22,8 +22,12 @@ public class Creature {
 		//If chance is greater than the creatures hunger:
 		//at 70% full, creature has a 30% chance not to move out of hunger
 		//Just trust that it makes sense somehow
-		if(chance >= hunger / maxHunger )
+		if(chance >= hunger / maxHunger)
 			move();
+		
+		//if(IslandSimulator.tiles[x][y].type = Tile.Type.APPLEFOREST)
+		//	hunger += TicksPerMinute;
+		//If it can't feed its self every minute, its deaaad
 		
 		if(hunger == 0)
 			alive = false;
@@ -43,13 +47,17 @@ public class Creature {
 	public void moveTowards(int tileX, int tileY)
 	{
 		if(y < tileY)
-			y++;
+			if(IslandSimulator.tiles[x][y + 1].type != Tile.Type.WATER)
+				y++;
 		if(y > tileY)
-			y--;
+			if(IslandSimulator.tiles[x][y - 1].type != Tile.Type.WATER)
+				y--;
 		if(x < tileX)
-			x++;
+			if(IslandSimulator.tiles[x + 1][y].type != Tile.Type.WATER)
+				x++;
 		if(x > tileX)
-			x--;
+			if(IslandSimulator.tiles[x - 1][y].type != Tile.Type.WATER)
+				x--;
 	}
 	public void moveRand()
 	{
@@ -65,9 +73,9 @@ public class Creature {
 		else
 			change = -1;
 		
-		if(xChange)
+		if(xChange && IslandSimulator.tiles[x + change][y].type != Tile.Type.WATER)
 			x += change;
-		else
+		else if(IslandSimulator.tiles[x][y + change].type != Tile.Type.WATER)
 			y += change;
 	}	
 }
