@@ -40,16 +40,16 @@ public class Generation
 			{
 				//The next segment checks the tiles around the stone tile
 				//and then randomly changes it based on amount of tiles around it
-				ArrayList<Tile.Type> nearby = new ArrayList<Tile.Type>();
+				ArrayList<Tile> nearby = new ArrayList<Tile>();
 				for(int suby = -1;suby<2;suby++)
 				{
 					for(int subx = -1; subx < 2;subx++)
 					{
-						nearby.add(tiles[x+subx][y+suby].type);
+						nearby.add(tiles[x+subx][y+suby]);
 					}
 				}
 				
-				tiles[x][y].type = nearby.get((int)(Math.random() * nearby.size()));
+				tiles[x][y] = nearby.get((int)(Math.random() * nearby.size()));
 			}
 		}
 	}
@@ -59,18 +59,27 @@ public class Generation
 		for(int x = 1; x < tiles.length-1; x++)
 			for(int y = 1; y < tiles[x].length-1; y++)
 			{
-				HashMap<Tile.Type, Integer> map = new HashMap<Tile.Type, Integer>();
+				HashMap<Tile, Integer> map = new HashMap<Tile, Integer>();
 				
 				for(int rx = -1; rx < 2; rx++)
 					for(int ry = -1; ry < 2; ry++)
-						map.put(tiles[x+rx][y+ry].type, map.get(tiles[x+rx][y+ry].type) == null ? 1 : map.get(tiles[x+rx][y+ry].type) + 1);
+						map.put(tiles[x+rx][y+ry], map.get(tiles[x+rx][y+ry]) == null ? 1 : map.get(tiles[x+rx][y+ry]) + 1);
 				
-				Tile.Type top = (Tile.Type) map.keySet().toArray()[0];
+				Tile top = (Tile) map.keySet().toArray()[0];
 				for(int n = 0; n < map.size(); n++)
 					if(map.get(map.keySet().toArray()[n]) > map.get(top))
-						top = (Tile.Type) map.keySet().toArray()[n];
+						top = (Tile) map.keySet().toArray()[n];
 				
-				tiles[x][y].type = top;
+				tiles[x][y] = top;
 			}
+	}
+	
+	public static void genMountain(Tile[][] tiles)
+	{
+		for(int x = 1; x < tiles.length; x++)
+			for(int y = 1; y < tiles[x].length; y++)
+				if(tiles[x][y].type == Tile.Type.STONE)
+					tiles[x][y].height = Math.sqrt(Math.pow(x - tiles.length/2, 2) + Math.pow(y - tiles[x].length/2, 2)) *
+							IslandSimulator.MOUNTAIN_HEIGHT + Math.random() - 0.5;
 	}
 }
