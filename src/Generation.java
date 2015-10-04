@@ -58,6 +58,11 @@ public class Generation
 	
 	public static void smooth(Tile[][] tiles)
 	{
+		Tile[][] oldSet = new Tile[tiles.length][tiles[0].length];
+		for(int x = 0; x < tiles.length; x++)
+			for(int y = 0; y < tiles[x].length; y++)
+				oldSet[x][y] = tiles[x][y];
+		
 		for(int x = 1; x < tiles.length-1; x++)
 			for(int y = 1; y < tiles[x].length-1; y++)
 			{
@@ -65,7 +70,7 @@ public class Generation
 				
 				for(int rx = -1; rx < 2; rx++)
 					for(int ry = -1; ry < 2; ry++)
-						map.put(tiles[x+rx][y+ry], map.get(tiles[x+rx][y+ry]) == null ? 1 : map.get(tiles[x+rx][y+ry]) + 1);
+						map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
 				
 				Tile top = (Tile) map.keySet().toArray()[0];
 				for(int n = 0; n < map.size(); n++)
@@ -84,7 +89,7 @@ public class Generation
 				int waters = 0;
 				for(int rx = -2; rx < 3; rx++)
 					for(int ry = -2; ry < 3; ry++)
-						if(x+rx>=0 && y+ry>=0 && x+rx < tiles.length && y+ry < tiles[x].length && tiles[x+rx][y+ry].type == Tile.Type.WATER)
+						if(x+rx>=0 && y+ry>=0 && x+rx<tiles.length && y+ry < tiles[x].length && tiles[x+rx][y+ry].type == Tile.Type.WATER)
 							waters++;
 				
 				if(tiles[x][y].type == Tile.Type.STONE)

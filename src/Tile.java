@@ -1,4 +1,9 @@
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 import javax.swing.JOptionPane;
 
@@ -7,14 +12,30 @@ public class Tile
 	 
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(
-				Color.GREEN.brighter(), FOREST());
 
-		public Color color;
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(Color.GREEN.brighter()),
+		FOREST("res/Forest.png");
+
+
+		public BufferedImage img;
 
 		Type(Color c)
 		{
-			color = c;
+			img = new BufferedImage(8, 8, BufferedImage.TYPE_INT_ARGB);
+			Graphics g = img.getGraphics();
+			g.setColor(c);
+			g.fillRect(0, 0, 8, 8);
+		}
+		
+		Type(String path)
+		{
+			try
+			{
+				img = ImageIO.read(new File(path));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -96,7 +117,7 @@ public class Tile
 		if (type == Type.STONE && fertilization > 0.5 && Math.random() > 0.99)
 		{
 			type = Type.SOIL;
-		} else if (type == Type.SOIL)
+		} else if (type == Type.SOIL && tiles[x][y].hydration > 0.05)
 		{
 			double grasschance = 0.00001;
 			int numgrass =0;
@@ -119,7 +140,7 @@ public class Tile
 		{
 			if(tiles[x][y].fertilization >= 1.5)
 			{
-				
+				tiles[x][y].type = Tile.Type.FOREST;
 			}
 			if(Math.random()>0.9999)
 			{
