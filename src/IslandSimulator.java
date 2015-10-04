@@ -74,9 +74,9 @@ public class IslandSimulator extends JPanel
 		for(int x = 0; x < tiles.length; x++)
 			for(int y = 0; y < tiles[x].length; y++)
 				tiles[x][y].tick(x, y);
-		Iterator<Creature> itr = creatures.iterator();
-		while(itr.hasNext())
-			itr.next().tick();
+//		Iterator<Creature> itr = creatures.iterator();
+//		while(itr.hasNext())
+//			itr.next().tick();
 	}
 	
 	public boolean isOpen()
