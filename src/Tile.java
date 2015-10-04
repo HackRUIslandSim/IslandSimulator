@@ -16,6 +16,7 @@ public class Tile
 	}
 
 	public Type type;
+	public double hydration;
 	public double height;
 
 	public Tile(Type t, double h)
@@ -27,7 +28,7 @@ public class Tile
 	public void tick(int x, int y)
 	{
 		ArrayList<Tile> nearby = new ArrayList<Tile>();
-		Tile tiles[][] = IslandSimulator.tiles;
+		Tile[][] tiles= IslandSimulator.tiles;
 		if (tiles[x][y].type != Tile.Type.WATER)
 		{
 			for (int subx = -1; subx < 2; subx++)
@@ -46,7 +47,8 @@ public class Tile
 				}
 			}
 			hydration = hydration/9;
-			
+			tiles[x][y].hydration = hydration;
+			//if(tile[x][y].type == STONE && tile[x][y].hydration >= ())
 		}
 	}
 
