@@ -4,8 +4,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -41,6 +44,7 @@ public class IslandSimulator extends JPanel
 	public static final int SIZE = 64, TILE_SIZE = 8;
 	public static final double MOUNTAIN_HEIGHT = 5;
 	public static Tile[][] tiles;
+	public static ArrayList<Creature> creatures;
 	
 	public IslandSimulator()
 	{
@@ -70,6 +74,9 @@ public class IslandSimulator extends JPanel
 		for(int x = 0; x < tiles.length; x++)
 			for(int y = 0; y < tiles[x].length; y++)
 				tiles[x][y].tick(x, y);
+		Iterator<Creature> itr = creatures.iterator();
+		while(itr.hasNext())
+			itr.next().tick();
 	}
 	
 	public boolean isOpen()
@@ -86,7 +93,7 @@ public class IslandSimulator extends JPanel
 			{
 				g.setColor(tiles[x][y].type.color);
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-				g.setColor(new Color(0, 0, 0, (int)(30 - tiles[x][y].height)));
+				g.setColor(new Color(0, 0, 0, (int)(tiles[x][y].height*24)));
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
 	}
