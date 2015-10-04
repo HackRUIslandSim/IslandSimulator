@@ -52,9 +52,9 @@ public class Tile
 					}
 				}
 			}
-			tiles[x][y].hydration = tiles[x][y].hydration / 2;
-
-			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (1) && Math.random() * 10 >= 5)
+			tiles[x][y].hydration = tiles[x][y].hydration/1.28;
+			System.out.println(tiles[x][y].hydration);
+			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.33) && Math.random() * 10 >= 9.95)
 			{
 				tiles[x][y].type = Tile.Type.MOSS;
 			}
