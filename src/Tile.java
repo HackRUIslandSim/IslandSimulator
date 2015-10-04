@@ -1,16 +1,36 @@
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Tile
 {
 	public static enum Type
 	{
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(Color.GREEN.brighter());
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(Color.GREEN.brighter()),
+		FOREST("res/Forest.png");
 
-		public Color color;
+		public BufferedImage img;
 
 		Type(Color c)
 		{
-			color = c;
+			img = new BufferedImage(8, 8, BufferedImage.TYPE_INT_ARGB);
+			Graphics g = img.getGraphics();
+			g.setColor(c);
+			g.fillRect(0, 0, 8, 8);
+		}
+		
+		Type(String path)
+		{
+			try
+			{
+				img = ImageIO.read(new File(path));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
