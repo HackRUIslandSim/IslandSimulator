@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
@@ -79,6 +80,13 @@ public class IslandSimulator extends JPanel
 			{
 				mouseX = e.getX();
 				mouseY = e.getY();
+			}
+		});
+		
+		this.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e)
+			{
+				
 			}
 		});
 		
