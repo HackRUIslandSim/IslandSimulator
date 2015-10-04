@@ -97,6 +97,17 @@ public class Tile
 						}
 					}
 				}
+
+				
+					
+				tiles[x][y].hydration /= 2;
+				tiles[x][y].hydration /= 1.05;
+				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9992 &&
+						tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
+				{
+					tiles[x][y].type = Tile.Type.MOSS; 
+				}
+
 			}
 
 			tiles[x][y].hydration /= 2;
@@ -136,7 +147,9 @@ public class Tile
 				tiles[x][y].type = Tile.Type.GRASS;
 
 		}
-		else if(tiles[x][y].type == Tile.Type.GRASS)
+
+		if(type == Type.GRASS)
+
 		{
 			if(tiles[x][y].fertilization >= 1.5)
 			{
