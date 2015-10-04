@@ -94,6 +94,7 @@ public class IslandSimulator extends JPanel
 		for(int i = 0; i < creatures.size(); i++)
 		{
 			creatures.get(i).tick();
+			
 			if(creatures.get(i).alive == false)
 				creatures.remove(i);
 		}
@@ -115,6 +116,9 @@ public class IslandSimulator extends JPanel
 				g.setColor(new Color(0, 0, 0, (int)(170 - tiles[x][y].height*24)));
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}
+		
+		for(int i = 0; i < creatures.size(); i++)
+			g.drawImage(creatures.get(i).img, creatures.get(i).x, creatures.get(i).y, null);
 	}
 	
 	public static void debugHang()

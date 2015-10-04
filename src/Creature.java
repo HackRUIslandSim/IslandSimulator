@@ -1,9 +1,13 @@
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Random;
+import javax.imageio.ImageIO;
 
 public class Creature {
 	public boolean alive = true;
-	private int x, y, hunger, movSpeed = 1, size = 1;
-	private final int TicksPerMinute = 600, maxHunger;	
+	public int x, y, hunger, movSpeed = 1, size = 1;
+	public final int TicksPerMinute = 600, maxHunger;	
+	public BufferedImage img = null;
 	//MaxMins = maximum time (in minutes) the creature can stay alive without eating
 	public Creature(int initX, int initY, int maxMins)
 	{
@@ -11,6 +15,21 @@ public class Creature {
 		y = initY;
 		maxHunger = TicksPerMinute * maxMins;
 		hunger = maxHunger;
+		switch (size)
+		{
+			case 1:
+				try{
+					img = ImageIO.read(new File("res/SmallAnimal.png"));
+				} catch (IOException e) {}
+			case 2:
+				try{
+					img = ImageIO.read(new File("resMedAnimal.png"));
+				} catch (IOException e) {}
+			case 3:
+				try{
+					img = ImageIO.read(new File("res/LargeAnimal.png"));
+				} catch (IOException e) {}
+		}
 	}
 	
 	public void tick()
@@ -43,10 +62,10 @@ public class Creature {
 		for(int i = 3; i > -4; i--)
 			for(int j = 3; j > -4; j--)
 			{
-				//if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.APPLEFOREST || FOREST)
-				//	applesNear = true;
-				//appleX = x + i
-				//appleY = y + j
+				if(IslandSimulator.tiles[x + i][y + j].type == Tile.Type.FOREST)
+					applesNear = true;
+				appleX = x + i;
+				appleY = y + j;
 			}
 		if(applesNear)
 			moveTowards(appleX, appleY);
