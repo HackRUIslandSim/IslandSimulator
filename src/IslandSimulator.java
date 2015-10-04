@@ -38,7 +38,7 @@ public class IslandSimulator extends JPanel
 				if(!panel.isOpen())
 					loop.cancel();
 			}
-		}, 0, 1000/1000);
+		}, 0, 1000/10);
 	}
 	
 	public static final int SIZE = 64, TILE_SIZE = 8;

@@ -95,7 +95,7 @@ public class Tile
 					
 				tiles[x][y].hydration /= 2;
 				tiles[x][y].hydration /= 1.05;
-				if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.05) && Math.random() >= 0.9992 &&
+				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9992 &&
 						tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
 				{
 					tiles[x][y].type = Tile.Type.MOSS; 
@@ -112,7 +112,7 @@ public class Tile
 		{
 			type = Type.SOIL;
 		}
-		if(type == Type.SOIL && Math.random() < 0.00001)
+		if(type == Type.SOIL && hydration > 0.05 && Math.random() < 0.00001)
 		{
 			tiles[x][y].type = Tile.Type.GRASS;
 		}
