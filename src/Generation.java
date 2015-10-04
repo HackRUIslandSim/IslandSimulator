@@ -13,13 +13,13 @@ public class Generation
 		for(int x = 1; x < tiles.length-1; x++)
 			for(int y = 1; y < tiles.length-1; y++)
 				if(Math.sqrt(Math.pow(IslandSimulator.SIZE/2-x, 2) + Math.pow(IslandSimulator.SIZE/2-y, 2)) / 
-						Math.sqrt(Math.pow(IslandSimulator.SIZE/2-1, 2) + Math.pow(IslandSimulator.SIZE/2-1, 2)) <= Math.random())
+						Math.sqrt(Math.pow(IslandSimulator.SIZE/2-1, 2) + Math.pow(IslandSimulator.SIZE/2-1, 2)) <= Math.random() - 0.02)
 					tiles[x][y] = new Tile(Tile.Type.STONE, 1);
 	}
 
 	
 	static final double SCRUB_CHANCE = 0.1;
-	static final int END_SCRUB = 2;
+	static final int END_SCRUB = 4;
 	public static void cleanUp(Tile[][] tiles, int iter)
 	{
 		for(int n = 0; n < iter; n++)
@@ -30,6 +30,8 @@ public class Generation
 		
 		for(int n = 0; n < END_SCRUB; n++)
 			smooth(tiles);
+		
+		deAlias(tiles);
 	}
 	
 
@@ -51,7 +53,12 @@ public class Generation
 					}
 				}
 				
-				tiles[x][y] = nearby.get((int)(Math.random() * nearby.size())).clone();
+				if(Math.random() > 0.05)
+					tiles[x][y] = nearby.get((int)(Math.random() * nearby.size()));
+				else
+					if(Math.sqrt(Math.pow(IslandSimulator.SIZE/2-x, 2) + Math.pow(IslandSimulator.SIZE/2-y, 2)) / 
+							Math.sqrt(Math.pow(IslandSimulator.SIZE/2-1, 2) + Math.pow(IslandSimulator.SIZE/2-1, 2)) <= Math.random()-0.02)
+						tiles[x][y] = new Tile(Tile.Type.STONE, 1);
 			}
 		}
 	}
@@ -72,12 +79,23 @@ public class Generation
 					for(int ry = -1; ry < 2; ry++)
 						map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
 				
+//				int rx = 1, ry = 0;
+//				map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
+//				rx = -1; ry = 0;
+//				map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
+//				rx = 0; ry = -1;
+//				map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
+//				rx = 0; ry = 1;
+//				map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
+//				rx = 0; ry = 0;
+//				map.put(oldSet[x+rx][y+ry], map.get(oldSet[x+rx][y+ry]) == null ? 1 : map.get(oldSet[x+rx][y+ry]) + 1);
+				
 				Tile top = (Tile) map.keySet().toArray()[0];
 				for(int n = 0; n < map.size(); n++)
 					if(map.get(map.keySet().toArray()[n]) > map.get(top))
 						top = (Tile) map.keySet().toArray()[n];
 				
-				tiles[x][y] = top.clone();
+				tiles[x][y] = top;
 			}
 	}
 	
@@ -95,5 +113,12 @@ public class Generation
 				if(tiles[x][y].type == Tile.Type.STONE)
 					tiles[x][y].height = IslandSimulator.MOUNTAIN_HEIGHT - (double)waters / 25.0 * IslandSimulator.MOUNTAIN_HEIGHT;
 			}
+	}
+	
+	public static void deAlias(Tile[][] tiles)
+	{
+		for(int x = 0; x < tiles.length; x++)
+			for(int y = 0; y < tiles[x].length; y++)
+				tiles[x][y] = tiles[x][y].clone();
 	}
 }

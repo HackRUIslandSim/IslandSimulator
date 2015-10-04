@@ -3,8 +3,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 
 
@@ -64,7 +62,6 @@ public class Tile
 	public void tick(int x, int y)
 	{
 		Tile[][] tiles = IslandSimulator.tiles;
-		ArrayList <Creature> creatures = IslandSimulator.creatures;
 		if (type == Type.WATER)
 		{
 			hydration = 1;
@@ -99,20 +96,12 @@ public class Tile
 
 				tiles[x][y].hydration /= 2;
 				tiles[x][y].hydration /= 1.05;
-				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9992
+				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9999
 						&& tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT - 0.5))
 				{
 					tiles[x][y].type = Tile.Type.MOSS;
 				}
 
-			}
-
-			tiles[x][y].hydration /= 2;
-			tiles[x][y].hydration /= 1.05;
-			if (tiles[x][y].type == Tile.Type.STONE && tiles[x][y].hydration >= (0.05) && Math.random() >= 0.9992
-					&& tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT - 0.5))
-			{
-				tiles[x][y].type = Tile.Type.MOSS;
 			}
 		}
 
@@ -161,16 +150,16 @@ public class Tile
 		}
 		if(tiles[x][y].type == Tile.Type.FOREST)
 		{
-			if(Math.random()*50<=1)
+			if(Math.random() < 0.005)
 			{
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
-			}
+		}
 		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
 		{
 			if(Math.random() < 0.001)
 			{
-//				creatures.add(Creature());
+				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
 			}
 		}
 	}
@@ -179,6 +168,7 @@ public class Tile
 	{
 		Tile t = new Tile(type, height);
 		t.hydration = hydration;
+		t.fertilization = fertilization;
 		return t;
 	}
 }
