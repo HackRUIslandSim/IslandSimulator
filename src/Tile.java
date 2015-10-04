@@ -5,17 +5,16 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import javax.swing.JOptionPane;
+
 
 public class Tile
 {
-	 
+
 	public static enum Type
 	{
 
-		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(Color.GREEN.brighter()),
-		FOREST("res/Forest.png");
-
+		STONE(Color.gray), WATER(Color.blue), MOSS(Color.green.darker()), SOIL(new Color(0x8b4513)), GRASS(
+				Color.GREEN.brighter()), FOREST("res/Forest.png"), LUSHFOREST("res/ForestApples.png");
 
 		public BufferedImage img;
 
@@ -26,7 +25,7 @@ public class Tile
 			g.setColor(c);
 			g.fillRect(0, 0, 8, 8);
 		}
-		
+
 		Type(String path)
 		{
 			try
@@ -62,9 +61,8 @@ public class Tile
 
 	public void tick(int x, int y)
 	{
-		
 
-			Tile[][] tiles = IslandSimulator.tiles;
+		Tile[][] tiles = IslandSimulator.tiles;
 
 		if (type == Type.WATER)
 		{
@@ -98,14 +96,12 @@ public class Tile
 					}
 				}
 
-				
-					
 				tiles[x][y].hydration /= 2;
 				tiles[x][y].hydration /= 1.05;
-				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9992 &&
-						tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT-0.5) )
+				if (tiles[x][y].type == Tile.Type.STONE && hydration >= (0.05) && Math.random() >= 0.9992
+						&& tiles[x][y].height < (IslandSimulator.MOUNTAIN_HEIGHT - 0.5))
 				{
-					tiles[x][y].type = Tile.Type.MOSS; 
+					tiles[x][y].type = Tile.Type.MOSS;
 				}
 
 			}
@@ -131,36 +127,44 @@ public class Tile
 		} else if (type == Type.SOIL && tiles[x][y].hydration > 0.05)
 		{
 			double grasschance = 0.00001;
-			int numgrass =0;
+			int numgrass = 0;
 			for (int subx = -1; subx < 2; subx++)
 			{
 				for (int suby = -1; suby < 2; suby++)
 				{
-					if (tiles[subx + x][suby + y].type == Tile.Type.GRASS)
+					if (tiles[subx + x][suby + y].type == Tile.Type.GRASS || tiles[subx + x][suby + y].type == Tile.Type.FOREST || 
+							tiles[subx + x][suby + y].type == Tile.Type.LUSHFOREST)
 					{
-							numgrass++;
-						grasschance *= (8/numgrass);
+						numgrass++;
+						grasschance *= (8 / numgrass);
 					}
-					}
+				}
 			}
 			if (Math.random() < grasschance)
 				tiles[x][y].type = Tile.Type.GRASS;
 
 		}
 
-		if(type == Type.GRASS)
+		if (type == Type.GRASS)
 
 		{
-			if(tiles[x][y].fertilization >= 1.5)
+			if (tiles[x][y].fertilization >= 1.5)
 			{
 				tiles[x][y].type = Tile.Type.FOREST;
 			}
-			if(Math.random()>0.9999)
+			if (Math.random() > 0.9999)
 			{
 				type = Tile.Type.SOIL;
-				tiles[x][y].fertilization = tiles[x][y].fertilization + (Math.random()*0.3) + 0.1;
+				tiles[x][y].fertilization = tiles[x][y].fertilization + (Math.random() * 0.3) + 0.1;
 			}
 		}
+		if(tiles[x][y].type == Tile.Type.FOREST)
+		{
+			if(Math.random()*50<=1)
+			{
+				tiles[x][y].type = Tile.Type.LUSHFOREST;
+			}
+			}
 	}
 
 	public Tile clone()
