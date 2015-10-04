@@ -82,6 +82,7 @@ public class Generation
 			for(int y = 1; y < tiles[x].length; y++)
 			{
 				int stones = 0;
+
 				for(int rx = -4; rx < 5; rx++)
 					for(int ry = -4; ry < 5; ry++)
 						if(x+rx >= 0 && y+ry >= 0 && x+rx < tiles.length && y+ry < tiles[x].length &&tiles[x+rx][y+ry].type == Tile.Type.STONE)
