@@ -156,14 +156,14 @@ public class Tile
 				tiles[x][y].type = Tile.Type.LUSHFOREST;
 			}
 		}
-		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
-		{
-			if(Math.random() < 0.001)
-			{
-				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
-				tiles[x][y].type = Tile.Type.FOREST;
-			}
-		}
+//		if(tiles[x][y].type == Tile.Type.LUSHFOREST)
+//		{
+//			if(Math.random() < 0.001)
+//			{
+//				IslandSimulator.creatures.add(new Creature(x * 8, y * 8));
+//				tiles[x][y].type = Tile.Type.FOREST;
+//			}
+//		}
 	}
 
 	public Tile clone()

@@ -19,8 +19,11 @@ public class IslandSimulator extends JPanel
 	static Timer loop = new Timer();
 	static IslandSimulator panel;
 	
-	public static void main(String[] args)
+	public static void main(int size, int tileSize)
 	{
+		SIZE = size;
+		TILE_SIZE = tileSize;
+		
 		JFrame frame = new JFrame("Island Simulator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -39,11 +42,11 @@ public class IslandSimulator extends JPanel
 				if(!panel.isOpen())
 					loop.cancel();
 			}
-		}, 0, 1000/10);
+		}, 0, 1000/1000);
 	}
 	
-	public static final int SIZE = 64, TILE_SIZE = 8;
 	public static final double MOUNTAIN_HEIGHT = 5;
+	public static int SIZE, TILE_SIZE;
 	public static int mouseX = 0, mouseY = 0;
 	public static Tile[][] tiles;
 	public static ArrayList<Creature> creatures;
@@ -122,7 +125,7 @@ public class IslandSimulator extends JPanel
 		for(int x = 0; x < tiles.length; x++)
 			for(int y = 0; y < tiles[x].length; y++)
 			{
-				g.drawImage(tiles[x][y].type.img, x*TILE_SIZE, y*TILE_SIZE, null);
+				g.drawImage(tiles[x][y].type.img, x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
 				g.setColor(new Color(0, 0, 0, (int)(170 - tiles[x][y].height*24)));
 				g.fillRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}

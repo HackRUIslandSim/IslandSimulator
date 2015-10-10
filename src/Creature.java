@@ -97,6 +97,7 @@ public class Creature {
 	}
 	public void moveRand()
 	{
+		System.out.println("rand");
 		Random generator = new Random();
 		
 		boolean xChange = false;
