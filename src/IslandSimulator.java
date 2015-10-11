@@ -19,7 +19,7 @@ public class IslandSimulator extends JPanel
 	static Timer loop = new Timer();
 	static IslandSimulator panel;
 	
-	public static void main(int size, int tileSize)
+	public static void main(int size, int tileSize, int time)
 	{
 		SIZE = size;
 		TILE_SIZE = tileSize;
@@ -42,7 +42,7 @@ public class IslandSimulator extends JPanel
 				if(!panel.isOpen())
 					loop.cancel();
 			}
-		}, 0, 1000/1000);
+		}, 0, 1000/time);
 	}
 	
 	public static final double MOUNTAIN_HEIGHT = 5;

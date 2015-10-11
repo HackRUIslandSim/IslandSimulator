@@ -47,7 +47,8 @@ public class StartUp extends JPanel
 				frame.dispose();
 				try{ size = Integer.parseInt(sizeField.getText());} catch(NumberFormatException ex){};
 				try{ tileSize = Integer.parseInt(tileField.getText());} catch(NumberFormatException ex){};
-				IslandSimulator.main(size, tileSize);
+				try{ time = Integer.parseInt(timeField.getText());} catch(NumberFormatException ex){};
+				IslandSimulator.main(size, tileSize, time);
 			}
 		});
 		this.add(start);
